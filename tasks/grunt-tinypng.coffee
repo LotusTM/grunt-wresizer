@@ -11,6 +11,8 @@ module.exports = ->
         checkSigs: true
         sigFile: '<%= file.build.images.hash %>'
         summarize: true
+        showProgress: true
+        summarizeOnError: true
         stopOnImageError: true
       files: [
           expand: true
