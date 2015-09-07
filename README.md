@@ -1,5 +1,7 @@
 # grunt-wresizer
 
+Resize, watermark and optimize images like a pro
+
 ## Installation
 
 `npm install`

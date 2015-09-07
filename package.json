@@ -1,7 +1,7 @@
 {
   "name": "wresizer",
   "version": "0.1.0",
-  "title": "Resize, watermark and optimize images",
+  "title": "Resize, watermark and optimize images like a pro",
   "author": "Serj Lavrin",
   "private": false,
   "dependencies": {
