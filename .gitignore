@@ -33,6 +33,9 @@ npm-debug.log
 ## Sass
 .sass-cache
 
+## Should remain private
+tinypng.yml
+
 ## Build folder
 build
 
