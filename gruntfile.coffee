@@ -15,7 +15,14 @@ module.exports = (grunt) ->
     env:
       tinypng:
         api:
-          key: process.env.TINYPNG_API_KEY
+          key: do ->
+            envKey = process.env.TINYPNG_API_KEY
+            if envKey
+              grunt.log.ok('Reading tinypng API key from environment')
+              return envKey
+            else
+              grunt.log.ok('Reading tinypng API key from `tinypng.yml`')
+              return grunt.file.readYAML('tinypng.yml').key
 
     # Specify your source and build directory structure
     path:
