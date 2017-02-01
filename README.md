@@ -1,5 +1,7 @@
 # grunt-wresizer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/LotusTM/grunt-wresizer.svg)](https://greenkeeper.io/)
+
 Resize, watermark and optimize images like a pro
 
 ## Installation
