@@ -31,15 +31,19 @@ module.exports = (grunt) ->
     transparent:
       keepTransparency: true
       watermark: false
+      trim: false
     transparentWatermarked:
       keepTransparency: true
       watermark: true
+      trim: false
     other:
       keepTransparency: false
       watermark: false
+      trim: false
     otherWatermarked:
       keepTransparency: false
       watermark: true
+      trim: false
   }
 
   # Defining task constructor
@@ -60,6 +64,7 @@ module.exports = (grunt) ->
       # reading settings for task
       _isKeepTransparency = task.keepTransparency
       _isWatermark        = task.watermark
+      _isTrim        = task.trim
 
       # consturcting Grunt task object
       _self[taskName] = {}
@@ -93,19 +98,16 @@ module.exports = (grunt) ->
                 params.flatten = [true]
               params
           ,
-            # watermark
-            do ->
-              if _isWatermark
-                return {
-                  command: ['composite']
-                  quality: [quality]
-                  # dissolve: ['50%']
-                  gravity: [watermarkGravity]
-                  geometry: [watermarkPadding]
-                  in: [watermarkFile]
-                }
-              else
-                return null
+            do -> if _isWatermark then return {
+              command: ['composite']
+              quality: [quality]
+              # dissolve: ['50%']
+              gravity: [watermarkGravity]
+              geometry: [watermarkPadding]
+              in: [watermarkFile]
+            }
+          ,
+            do -> if _isTrim then return { trim: ['-'] }
         ]
         rename: (dest, src) ->
           # added `watermarked` tag in dir name in case we're watermarking images
