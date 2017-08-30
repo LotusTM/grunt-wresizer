@@ -99,6 +99,7 @@ module.exports = (grunt) ->
         dest: '<%= path.build.images %>/'
         # change extension in case of forcing conversion to non-transparent format
         ext: do -> if _isKeepTransparency then return '.png' else return '.jpg'
+        extDot: 'last'
         tasks: [
             do -> if _isTrim then return { trim: ['-'] }
           ,
@@ -124,23 +125,25 @@ module.exports = (grunt) ->
             }
         ]
         rename: (dest, src) ->
+          dirname = path.dirname(src)
+          basename = path.basename(src)
+
           # added `watermarked` tag in dir name in case we're watermarking images
           if _isWatermark
-            src = src.replace(/(_source.*?)\//, '$1' + watermarkDirName + '/')
+            dirname = dirname.replace(/(_source.*?)\//, '$1' + watermarkDirName + '/')
 
           # replace `transparent` in dir name with specified background color name
           # in case of conversion of transparent image to `jpg`
           if not _isKeepTransparency
-            src = src.replace(transparentDirName, '--' + bgColorName)
+            dirname = dirname.replace(transparentDirName, '--' + bgColorName)
 
-          src = src
+          dirname = dirname
             # replace `source` dir name with `compressed`
             .replace(sourceDirName, destDirName)
             # replace `width` in dir name with target width
             .replace(/--[\d]*--/, '--' + maxWidth + '--')
 
-          dest = path.join(dest, src)
-          dest
+          return path.join(dest, dirname, basename)
       ]
 
       done()
