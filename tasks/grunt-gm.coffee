@@ -50,6 +50,7 @@ module.exports = (grunt) ->
       trim: true
       maxWidth: '400'
       maxHeight: '400'
+      dir: 'card'
     otherWatermarked:
       keepTransparency: false
       watermark: true
@@ -77,8 +78,8 @@ module.exports = (grunt) ->
       _isKeepTransparency = task.keepTransparency
       _isWatermark        = task.watermark
       _isTrim        = task.trim
-      maxWidth = task.maxWidth
-      maxHeight = task.maxHeight
+
+      { dir, maxWidth, maxHeight } = task
 
       # consturcting Grunt task object
       _self[taskName] = {}
@@ -142,6 +143,9 @@ module.exports = (grunt) ->
             .replace(sourceDirName, destDirName)
             # replace `width` in dir name with target width
             .replace(/--[\d]*--/, '--' + maxWidth + '--')
+
+          if dir
+            dirname = path.join(dirname, dir)
 
           return path.join(dest, dirname, basename)
       ]
