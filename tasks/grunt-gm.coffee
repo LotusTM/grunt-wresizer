@@ -86,6 +86,8 @@ module.exports = (grunt) ->
         # change extension in case of forcing conversion to non-transparent format
         ext: do -> if _isKeepTransparency then return '.png' else return '.jpg'
         tasks: [
+            do -> if _isTrim then return { trim: ['-'] }
+          ,
             do ->
               # resize
               params = {
@@ -106,8 +108,6 @@ module.exports = (grunt) ->
               geometry: [watermarkPadding]
               in: [watermarkFile]
             }
-          ,
-            do -> if _isTrim then return { trim: ['-'] }
         ]
         rename: (dest, src) ->
           # added `watermarked` tag in dir name in case we're watermarking images
