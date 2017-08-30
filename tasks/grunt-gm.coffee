@@ -15,8 +15,6 @@ module.exports = (grunt) ->
   transparentDirName = '--transparent'
   watermarkDirName   = '--watermarked'
 
-  maxWidth           = '1200'
-  maxHeight          = '1200'
   watermarkFile      = grunt.template.process('<%= file.source.watermark %>')
   watermarkOpacity   = '50%'
   watermarkGravity   = 'SouthEast'
@@ -32,18 +30,32 @@ module.exports = (grunt) ->
       keepTransparency: true
       watermark: false
       trim: false
+      maxWidth: '1200'
+      maxHeight: '1200'
     transparentWatermarked:
       keepTransparency: true
       watermark: true
       trim: false
+      maxWidth: '1200'
+      maxHeight: '1200'
     other:
       keepTransparency: false
       watermark: false
       trim: false
+      maxWidth: '1200'
+      maxHeight: '1200'
+    card:
+      keepTransparency: false
+      watermark: false
+      trim: true
+      maxWidth: '400'
+      maxHeight: '400'
     otherWatermarked:
       keepTransparency: false
       watermark: true
       trim: false
+      maxWidth: '1200'
+      maxHeight: '1200'
   }
 
   # Defining task constructor
@@ -65,6 +77,8 @@ module.exports = (grunt) ->
       _isKeepTransparency = task.keepTransparency
       _isWatermark        = task.watermark
       _isTrim        = task.trim
+      maxWidth = task.maxWidth
+      maxHeight = task.maxHeight
 
       # consturcting Grunt task object
       _self[taskName] = {}
